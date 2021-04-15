@@ -20,8 +20,8 @@ public class TestRunner {
     public static TestRunner runner = new TestRunner();
 
     public String location() {
-        var st = Thread.currentThread().getStackTrace();
-        var ste = st[1];
+        StackTraceElement[] st = Thread.currentThread().getStackTrace();
+        StackTraceElement ste = st[1];
         for (int i = 1; i < st.length; ++i) {
             if (st[i].getClassName() != "org.jetbrains.skija.test.TestRunner") {
                 ste = st[i];

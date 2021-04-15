@@ -4,6 +4,7 @@ import java.lang.ref.*;
 import org.jetbrains.annotations.*;
 import org.jetbrains.skija.*;
 import org.jetbrains.skija.impl.*;
+import sun.misc.Unsafe;
 
 public class ParagraphBuilder extends Managed {
     static { Library.staticLoad(); }
@@ -14,8 +15,8 @@ public class ParagraphBuilder extends Managed {
     public ParagraphBuilder(ParagraphStyle style, FontCollection fc) {
         super(_nMake(Native.getPtr(style), Native.getPtr(fc)), _FinalizerHolder.PTR);
         Stats.onNativeCall();
-        Reference.reachabilityFence(style);
-        Reference.reachabilityFence(fc);
+        RefExt.reachabilityFence(style);
+        RefExt.reachabilityFence(fc);
     }
 
     public ParagraphBuilder pushStyle(TextStyle style) {
@@ -24,7 +25,7 @@ public class ParagraphBuilder extends Managed {
             _nPushStyle(_ptr, Native.getPtr(style));
             return this;
         } finally {
-            Reference.reachabilityFence(style);
+            RefExt.reachabilityFence(style);
         }
     }
 
@@ -56,18 +57,18 @@ public class ParagraphBuilder extends Managed {
             _nSetParagraphStyle(_ptr, Native.getPtr(style));
             return this;
         } finally {
-            Reference.reachabilityFence(style);
+            RefExt.reachabilityFence(style);
         }
     }
 
     public Paragraph build() {
         try {
             Stats.onNativeCall();
-            var paragraph = new Paragraph(_nBuild(_ptr), _text);
+            Paragraph paragraph = new Paragraph(_nBuild(_ptr), _text);
             _text = null;
             return paragraph;
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 

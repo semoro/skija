@@ -6,9 +6,9 @@ import static org.jetbrains.skija.test.TestRunner.*;
 public class PathMeasureTest implements Executable {
     @Override
     public void execute() throws Exception {
-        try (var path = new Path().moveTo(0, 0).lineTo(40, 0).moveTo(0, 40).lineTo(10, 50);
-             var measure = new PathMeasure(path, false);
-             var path2 = new Path().lineTo(10, 10);)
+        try (Path path = new Path().moveTo(0, 0).lineTo(40, 0).moveTo(0, 40).lineTo(10, 50);
+             PathMeasure measure = new PathMeasure(path, false);
+             Path path2 = new Path().lineTo(10, 10);)
         {
             assertEquals(40f, measure.getLength());
             assertClose(new Point(0, 0), measure.getPosition(0));

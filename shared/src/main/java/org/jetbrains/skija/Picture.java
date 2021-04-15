@@ -25,7 +25,7 @@ public class Picture extends RefCnt {
             long ptr = _nMakeFromData(Native.getPtr(data));
             return ptr == 0 ? null : new Picture(ptr);
         } finally {
-            Reference.reachabilityFence(data);
+            RefExt.reachabilityFence(data);
         }
     }
 
@@ -64,7 +64,7 @@ public class Picture extends RefCnt {
             _nPlayback(_ptr, Native.getPtr(canvas), abort);
             return this;
         } finally {
-            Reference.reachabilityFence(canvas);
+            RefExt.reachabilityFence(canvas);
         }
     }
 
@@ -84,7 +84,7 @@ public class Picture extends RefCnt {
             Stats.onNativeCall();
             return _nGetCullRect(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -98,7 +98,7 @@ public class Picture extends RefCnt {
             Stats.onNativeCall();
             return _nGetUniqueId(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -112,7 +112,7 @@ public class Picture extends RefCnt {
             Stats.onNativeCall();
             return new Data(_nSerializeToData(_ptr));
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -149,7 +149,7 @@ public class Picture extends RefCnt {
             Stats.onNativeCall();
             return _nGetApproximateOpCount(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -166,7 +166,7 @@ public class Picture extends RefCnt {
             Stats.onNativeCall();
             return _nGetApproximateBytesUsed(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -222,7 +222,7 @@ public class Picture extends RefCnt {
     }
 
     @ApiStatus.Internal public static native long _nMakeFromData(long dataPtr /*, SkDeserialProcs */);
-    @ApiStatus.Internal public static native void _nPlayback(long ptr, long canvasPtr, @Nullable BooleanSupplier abort);
+    @ApiStatus.Internal public static native void _nPlayback(long ptr, long canvasPtr, BooleanSupplier abort);
     @ApiStatus.Internal public static native Rect _nGetCullRect(long ptr);
     @ApiStatus.Internal public static native int  _nGetUniqueId(long ptr);
     @ApiStatus.Internal public static native long _nSerializeToData(long ptr /*, SkSerialProcs */);

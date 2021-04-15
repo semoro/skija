@@ -23,7 +23,7 @@ public class TypefaceFontProvider extends FontMgr {
             _nRegisterTypeface(_ptr, Native.getPtr(typeface), alias);
             return this;
         } finally {
-            Reference.reachabilityFence(typeface);
+            RefExt.reachabilityFence(typeface);
         }
     }
 

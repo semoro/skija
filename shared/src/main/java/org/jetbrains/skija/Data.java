@@ -15,7 +15,7 @@ public class Data extends Managed {
             Stats.onNativeCall();
             return _nSize(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -28,7 +28,7 @@ public class Data extends Managed {
             Stats.onNativeCall();
             return _nBytes(_ptr, offset, length);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -42,8 +42,8 @@ public class Data extends Managed {
             Stats.onNativeCall();
             return _nEquals(_ptr, Native.getPtr(other));
         } finally {
-            Reference.reachabilityFence(this);
-            Reference.reachabilityFence(other);
+            RefExt.reachabilityFence(this);
+            RefExt.reachabilityFence(other);
         }
     }
 
@@ -74,7 +74,7 @@ public class Data extends Managed {
             Stats.onNativeCall();
             return new Data(_nMakeSubset(_ptr, offset, length));
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -83,7 +83,7 @@ public class Data extends Managed {
             Stats.onNativeCall();
             return new Data(_nMakeSubset(_ptr, 0, getSize()));
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 

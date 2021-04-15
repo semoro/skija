@@ -6,7 +6,7 @@ import static org.jetbrains.skija.test.TestRunner.*;
 public class BitmapTest implements Executable {
     @Override
     public void execute() throws Exception {
-        try (var bitmap = new Bitmap()) {
+        try (Bitmap bitmap = new Bitmap()) {
             int id1 = bitmap.getGenerationId();
             assertEquals(true, bitmap.isNull());
             assertEquals(true, bitmap.isEmpty());

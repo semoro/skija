@@ -24,7 +24,7 @@ public class TextBlob extends Managed {
             Stats.onNativeCall();
             return _nBounds(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -38,7 +38,7 @@ public class TextBlob extends Managed {
             Stats.onNativeCall();
             return _nGetUniqueId(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -61,8 +61,8 @@ public class TextBlob extends Managed {
             Stats.onNativeCall();
             return _nGetIntercepts(_ptr, lowerBound, upperBound, Native.getPtr(paint));
         } finally {
-            Reference.reachabilityFence(this);
-            Reference.reachabilityFence(paint);
+            RefExt.reachabilityFence(this);
+            RefExt.reachabilityFence(paint);
         }
     }
 
@@ -83,7 +83,7 @@ public class TextBlob extends Managed {
             long ptr = _nMakeFromPosH(glyphs, xpos, ypos, Native.getPtr(font));
             return ptr == 0 ? null : new TextBlob(ptr);
         } finally {
-            Reference.reachabilityFence(font);
+            RefExt.reachabilityFence(font);
         }
     }
 
@@ -108,7 +108,7 @@ public class TextBlob extends Managed {
             long ptr = _nMakeFromPos(glyphs, floatPos, Native.getPtr(font));
             return ptr == 0 ? null : new TextBlob(ptr);
         } finally {
-            Reference.reachabilityFence(font);
+            RefExt.reachabilityFence(font);
         }
     }
 
@@ -126,7 +126,7 @@ public class TextBlob extends Managed {
             long ptr = _nMakeFromRSXform(glyphs, floatXform, Native.getPtr(font));
             return ptr == 0 ? null : new TextBlob(ptr);
         } finally {
-            Reference.reachabilityFence(font);
+            RefExt.reachabilityFence(font);
         }
     }
 
@@ -135,7 +135,7 @@ public class TextBlob extends Managed {
             Stats.onNativeCall();
             return new Data(_nSerializeToData(_ptr));
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -146,7 +146,7 @@ public class TextBlob extends Managed {
             long ptr = _nMakeFromData(Native.getPtr(data));
             return ptr == 0 ? null : new TextBlob(ptr);
         } finally {
-            Reference.reachabilityFence(data);
+            RefExt.reachabilityFence(data);
         }
     }
 
@@ -159,7 +159,7 @@ public class TextBlob extends Managed {
             Stats.onNativeCall();
             return _nGetGlyphs(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -181,7 +181,7 @@ public class TextBlob extends Managed {
             Stats.onNativeCall();
             return _nGetPositions(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -200,7 +200,7 @@ public class TextBlob extends Managed {
                 throw new IllegalArgumentException();
             return res; 
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -219,7 +219,7 @@ public class TextBlob extends Managed {
                 throw new IllegalArgumentException();
             return res;
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -238,7 +238,7 @@ public class TextBlob extends Managed {
                 throw new IllegalArgumentException();
             return res;
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -257,7 +257,7 @@ public class TextBlob extends Managed {
                 throw new IllegalArgumentException();
             return res;
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -276,7 +276,7 @@ public class TextBlob extends Managed {
                 throw new IllegalArgumentException();
             return res;
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 

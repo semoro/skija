@@ -11,9 +11,9 @@ public class FontMgrRunIterator extends ManagedRunIterator<FontRun> {
     public FontMgrRunIterator(ManagedString text, boolean manageText, Font font, FontMgr fontMgr) {
         super(_nMake(Native.getPtr(text), Native.getPtr(font), Native.getPtr(fontMgr)), text, manageText);
         Stats.onNativeCall();
-        Reference.reachabilityFence(text);
-        Reference.reachabilityFence(font);
-        Reference.reachabilityFence(fontMgr);
+        RefExt.reachabilityFence(text);
+        RefExt.reachabilityFence(font);
+        RefExt.reachabilityFence(fontMgr);
     }
 
     public FontMgrRunIterator(String text, Font font, @Nullable FontMgr fontMgr) {
@@ -26,7 +26,7 @@ public class FontMgrRunIterator extends ManagedRunIterator<FontRun> {
             _nConsume(_ptr);
             return new FontRun(_getEndOfCurrentRun(), new Font(_nGetCurrentFont(_ptr)));
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 

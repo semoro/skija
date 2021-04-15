@@ -24,10 +24,10 @@ public class FontCollectionTest implements Executable {
         assertEquals(1L, fc.getFontManagersCount());
 
         assertEquals(2, jbMono.getRefCount());
-        try (var jbMono2 = fc.findTypefaces(new String[] { "JetBrains Mono" }, FontStyle.NORMAL)[0]) {
+        try (Typeface jbMono2 = fc.findTypefaces(new String[] { "JetBrains Mono" }, FontStyle.NORMAL)[0]) {
             assertEquals(4, jbMono.getRefCount());
             assertEquals(4, jbMono2.getRefCount());
-            try (var jbMono3 = fc.findTypefaces(new String[] { "JetBrains Mono" }, FontStyle.NORMAL)[0]) {
+            try (Typeface jbMono3 = fc.findTypefaces(new String[] { "JetBrains Mono" }, FontStyle.NORMAL)[0]) {
                 assertEquals(5, jbMono.getRefCount());
                 assertEquals(5, jbMono2.getRefCount());
                 assertEquals(5, jbMono3.getRefCount());
@@ -44,12 +44,12 @@ public class FontCollectionTest implements Executable {
         assertArrayEquals(new Typeface[] { jbMono, inter }, fc.findTypefaces(new String[] { "JetBrains Mono", "Interface" }, FontStyle.NORMAL));
 
         // default fm
-        var defaultFM = FontMgr.getDefault();
+        FontMgr defaultFM = FontMgr.getDefault();
         fc.setDefaultFontManager(defaultFM);
 
         assertEquals(2L, fc.getFontManagersCount());
         assertEquals(3, defaultFM.getRefCount());
-        try (var ffm = fc.getFallbackManager()) {
+        try (FontMgr ffm = fc.getFallbackManager()) {
             assertEquals(4, defaultFM.getRefCount());
             assertEquals(defaultFM, ffm);
         }
@@ -76,9 +76,9 @@ public class FontCollectionTest implements Executable {
         //     assertEquals(2, t1.getRefCount());
         // }
 
-        try (var t1 = fc.defaultFallback(65 /* A */, FontStyle.NORMAL, "en-US");) {
+        try (Typeface t1 = fc.defaultFallback(65 /* A */, FontStyle.NORMAL, "en-US");) {
             int refCnt = t1.getRefCount();
-            try (var t2 = fc.defaultFallback(65 /* A */, FontStyle.NORMAL, "en-US");) {
+            try (Typeface t2 = fc.defaultFallback(65 /* A */, FontStyle.NORMAL, "en-US");) {
                 assertEquals(refCnt + 1, t1.getRefCount());
                 assertEquals(refCnt + 1, t2.getRefCount());
                 assertEquals(t1, t2);

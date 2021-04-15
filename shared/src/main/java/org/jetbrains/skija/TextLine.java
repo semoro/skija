@@ -25,7 +25,7 @@ public class TextLine extends Managed {
 
     @NotNull @Contract("_, _, _, _ -> new")
     public static TextLine make(String text, Font font, @Nullable FontFeature[] features, boolean leftToRight) {
-        try (var shaper = Shaper.makeShapeDontWrapOrReorder();) {
+        try (Shaper shaper = Shaper.makeShapeDontWrapOrReorder();) {
             return shaper.shapeLine(text, font, features, leftToRight);
         }
     }
@@ -35,7 +35,7 @@ public class TextLine extends Managed {
         try {
             return _nGetAscent(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -44,7 +44,7 @@ public class TextLine extends Managed {
         try {
             return _nGetCapHeight(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -53,7 +53,7 @@ public class TextLine extends Managed {
         try {
             return _nGetDescent(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -62,7 +62,7 @@ public class TextLine extends Managed {
         try {
             return _nGetLeading(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -71,7 +71,7 @@ public class TextLine extends Managed {
         try {
             return _nGetWidth(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -80,7 +80,7 @@ public class TextLine extends Managed {
         try {
             return _nGetHeight(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -91,7 +91,7 @@ public class TextLine extends Managed {
             long res = _nGetTextBlob(_ptr);
             return res == 0 ? null : new TextBlob(res);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -100,7 +100,7 @@ public class TextLine extends Managed {
         try {
             return _nGetGlyphs(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }    
 
@@ -112,7 +112,7 @@ public class TextLine extends Managed {
         try {
             return _nGetPositions(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -121,7 +121,7 @@ public class TextLine extends Managed {
         try {
             return _nGetClusters(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }    
 
@@ -134,7 +134,7 @@ public class TextLine extends Managed {
             Stats.onNativeCall();
             return _nGetOffsetAtCoord(_ptr, x);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -147,7 +147,7 @@ public class TextLine extends Managed {
             Stats.onNativeCall();
             return _nGetCoordAtOffset(_ptr, offset);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 

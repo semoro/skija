@@ -11,7 +11,7 @@ public class DOM extends RefCnt {
     public DOM(@NotNull Data data) {
         this(_nMakeFromData(Native.getPtr(data)));
         Stats.onNativeCall();
-        Reference.reachabilityFence(data);
+        RefExt.reachabilityFence(data);
     }
 
     @NotNull
@@ -19,7 +19,7 @@ public class DOM extends RefCnt {
         try {
             return _nGetContainerSize(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -46,7 +46,7 @@ public class DOM extends RefCnt {
             _nRender(_ptr, Native.getPtr(canvas));
             return this;
         } finally {
-            Reference.reachabilityFence(canvas);
+            RefExt.reachabilityFence(canvas);
         }
     }
 

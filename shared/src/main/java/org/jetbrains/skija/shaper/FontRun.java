@@ -16,7 +16,7 @@ public class FontRun {
         try {
             return Native.getPtr(_font);
         } finally {
-            Reference.reachabilityFence(_font);
+            RefExt.reachabilityFence(_font);
         }
     }
 }

@@ -2,6 +2,7 @@ package org.jetbrains.skija.impl;
 
 import java.lang.ref.*;
 import org.jetbrains.annotations.*;
+import org.jetbrains.skija.RefExt;
 
 public abstract class RefCnt extends Managed {
     protected RefCnt(long ptr) {
@@ -17,7 +18,7 @@ public abstract class RefCnt extends Managed {
             Stats.onNativeCall();
             return _nGetRefCount(_ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 

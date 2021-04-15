@@ -1,11 +1,12 @@
 package org.jetbrains.skija.impl;
 
 import org.jetbrains.annotations.*;
+import sun.misc.Cleaner;
 import java.lang.ref.*;
 
 public abstract class Managed extends Native implements AutoCloseable {
     @ApiStatus.Internal
-    public Cleaner.Cleanable _cleanable;
+    public Cleaner _cleanable;
 
     public Managed(long ptr, long finalizer) {
         this(ptr, finalizer, true);
@@ -18,7 +19,7 @@ public abstract class Managed extends Native implements AutoCloseable {
             assert finalizer != 0 : "Managed finalizer is 0";
             String className = getClass().getSimpleName();
             Stats.onAllocated(className);
-            this._cleanable = _cleaner.register(this, new CleanerThunk(className, ptr, finalizer));
+            this._cleanable = Cleaner.create(this, new CleanerThunk(className, ptr, finalizer));
         }
     }
 
@@ -35,7 +36,7 @@ public abstract class Managed extends Native implements AutoCloseable {
         }
     }
 
-    public static Cleaner _cleaner = Cleaner.create();
+//    public static Cleaner _cleaner = Cleaner.create(null, null);
 
     public static class CleanerThunk implements Runnable {
         public String _className;

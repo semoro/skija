@@ -5,10 +5,10 @@
 
 JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM* vm, void* reserved) {
     JNIEnv* env;
-    if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_10) != JNI_OK)
+    if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_2) != JNI_OK)
         return JNI_ERR;
 
-    return JNI_VERSION_10;
+    return JNI_VERSION_1_2;
 }
 
 extern "C" JNIEXPORT void JNICALL Java_org_jetbrains_skija_impl_Library__1nAfterLoad
@@ -22,7 +22,7 @@ extern "C" JNIEXPORT void JNICALL Java_org_jetbrains_skija_impl_Library__1nAfter
 
 JNIEXPORT void JNICALL JNI_OnUnload(JavaVM* vm, void* reserved) {
     JNIEnv* env;
-    if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_10) != JNI_OK)
+    if (vm->GetEnv(reinterpret_cast<void**>(&env), JNI_VERSION_1_2) != JNI_OK)
         return;
 
     skija::paragraph::onUnload(env);

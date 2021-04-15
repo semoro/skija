@@ -15,7 +15,7 @@ public class ColorTest implements Executable {
         cases.put(0x000000FF, new Color4f(0, 0, 1, 0));
         cases.put(0x80808080, new Color4f(128/255f, 128/255f, 128/255f, 128/255f));
 
-        for (var entry: cases.entrySet()) {
+        for (Map.Entry<Integer, Color4f> entry: cases.entrySet()) {
             int color = entry.getKey();
             Color4f color4f = entry.getValue();
             pushStack(Integer.toString(color, 16) + " <-> " + color4f);

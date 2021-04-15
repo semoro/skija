@@ -6,21 +6,21 @@ import static org.jetbrains.skija.test.TestRunner.*;
 public class SurfaceTest implements Executable {
     @Override
     public void execute() throws Exception {
-        try (var nullSurface = Surface.makeRasterN32Premul(0, 0)) {
+        try (Surface nullSurface = Surface.makeRasterN32Premul(0, 0)) {
             assertEquals(null, nullSurface);
         }
-        try (var surface = Surface.makeRasterN32Premul(100, 200)) {
+        try (Surface surface = Surface.makeRasterN32Premul(100, 200)) {
             assertEquals(100, surface.getWidth());
             assertEquals(200, surface.getHeight());
 
-            var readPixelsBitmap = new Bitmap();
+            Bitmap readPixelsBitmap = new Bitmap();
             readPixelsBitmap.setImageInfo(ImageInfo.makeN32Premul(100, 200));
             readPixelsBitmap.allocPixels();
             assertEquals(true, surface.readPixels(readPixelsBitmap, 0, 0));
 
             int id = surface.getGenerationId();
             assertEquals(id, surface.getGenerationId());
-            var writePixelsBitmap = new Bitmap();
+            Bitmap writePixelsBitmap = new Bitmap();
             writePixelsBitmap.setImageInfo(ImageInfo.makeN32Premul(100, 200));
             writePixelsBitmap.allocPixels();
             surface.writePixels(writePixelsBitmap, 0, 0);
@@ -28,19 +28,19 @@ public class SurfaceTest implements Executable {
 
             assertEquals(true, surface.isUnique());
 
-            var imageInfo = surface.getImageInfo();
+            ImageInfo imageInfo = surface.getImageInfo();
             assertEquals(100, imageInfo.getWidth());
             assertEquals(200, imageInfo.getHeight());
 
-            var newSurface = surface.makeSurface(50, 100);
+            Surface newSurface = surface.makeSurface(50, 100);
             assertEquals(50, newSurface.getWidth());
             assertEquals(100, newSurface.getHeight());
 
-            var newSurface2 = surface.makeSurface(ImageInfo.makeN32Premul(200, 400));
+            Surface newSurface2 = surface.makeSurface(ImageInfo.makeN32Premul(200, 400));
             assertEquals(200, newSurface2.getWidth());
             assertEquals(400, newSurface2.getHeight());
 
-            var image = surface.makeImageSnapshot(new IRect(0, 0, 20, 30));
+            Image image = surface.makeImageSnapshot(new IRect(0, 0, 20, 30));
             assertEquals(20, image.getWidth());
             assertEquals(30, image.getHeight());
 
@@ -49,7 +49,7 @@ public class SurfaceTest implements Executable {
             surface.notifyContentWillChange(ContentChangeMode.DISCARD);
             assertNotEquals(id2, surface.getGenerationId());
 
-            var context = surface.getRecordingContext();
+            DirectContext context = surface.getRecordingContext();
             assertEquals(context, null);
         }
     }

@@ -32,7 +32,7 @@ public class TypefaceTest implements Executable {
         assertArrayEquals(null, inter.getVariationAxes());
         assertArrayEquals(null, inter.getVariations());
 
-        var axes = new FontVariationAxis[] { new FontVariationAxis("wght", 100f, 400f, 900f),
+        FontVariationAxis[] axes = new FontVariationAxis[] { new FontVariationAxis("wght", 100f, 400f, 900f),
                                              new FontVariationAxis("slnt", -10f, 0f, 0f) };
         assertArrayEquals(axes, interV.getVariationAxes());
         assertArrayEquals(FontVariation.parse("wght=400 slnt=0"), interV.getVariations());

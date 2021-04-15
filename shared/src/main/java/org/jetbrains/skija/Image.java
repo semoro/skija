@@ -70,7 +70,7 @@ public class Image extends RefCnt {
             long ptr = _nEncodeToData(_ptr, format.ordinal(), quality);
             return ptr == 0 ? null : new Data(ptr);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 
@@ -81,7 +81,7 @@ public class Image extends RefCnt {
             _height = (int) (res & 0xFFFFFFFF);
             _width = (int) (res >>> 32);
         } finally {
-            Reference.reachabilityFence(this);
+            RefExt.reachabilityFence(this);
         }
     }
 

@@ -2,6 +2,7 @@ package org.jetbrains.skija.impl;
 
 import java.io.*;
 import java.net.*;
+import java.nio.ByteBuffer;
 import java.nio.file.*;
 import java.util.*;
 import lombok.*;
@@ -16,12 +17,36 @@ public class Library {
             load();
     }
 
+    static class C {
+        public final byte[] buf;
+        public final int size;
+
+        public C(byte[] buf, int size) {
+            this.buf = buf;
+            this.size = size;
+        }
+    }
+
+    public static byte[] readAllBytes(InputStream is) throws IOException {
+        ArrayList<C> blobs = new ArrayList<>();
+        byte[] buf = new byte[1024];
+        int r;
+        while ((r = is.read(buf)) != 0) {
+            blobs.add(new C(buf, r));
+            buf = new byte[1024];
+        }
+        int total = blobs.stream().map((obj) -> obj.size).reduce(0, Integer::sum);
+        ByteBuffer result = ByteBuffer.allocate(total);
+        blobs.forEach((blob) -> result.put(blob.buf, 0, blob.size));
+        return result.array();
+    }
+
     public static String readResource(String path) {
         URL url = Library.class.getResource(path);
         if (url == null)
             return null;
         try (InputStream is = url.openStream()) {
-            byte[] bytes = is.readAllBytes();
+            byte[] bytes = readAllBytes(is);
             return new String(bytes).trim();
         } catch (IOException e) {
             return null;

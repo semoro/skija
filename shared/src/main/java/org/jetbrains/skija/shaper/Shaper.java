@@ -30,7 +30,7 @@ public class Shaper extends Managed {
             Stats.onNativeCall();
             return new Shaper(_nMakeShaperDrivenWrapper(Native.getPtr(fontMgr)));
         } finally {
-            Reference.reachabilityFence(fontMgr);
+            RefExt.reachabilityFence(fontMgr);
         }
     }
 
@@ -45,7 +45,7 @@ public class Shaper extends Managed {
             Stats.onNativeCall();
             return new Shaper(_nMakeShapeThenWrap(Native.getPtr(fontMgr)));
         } finally {
-            Reference.reachabilityFence(fontMgr);
+            RefExt.reachabilityFence(fontMgr);
         }
     }
 
@@ -60,7 +60,7 @@ public class Shaper extends Managed {
             Stats.onNativeCall();
             return new Shaper(_nMakeShapeDontWrapOrReorder(Native.getPtr(fontMgr)));
         } finally {
-            Reference.reachabilityFence(fontMgr);
+            RefExt.reachabilityFence(fontMgr);
         }
     }
 
@@ -91,7 +91,7 @@ public class Shaper extends Managed {
             Stats.onNativeCall();
             return new Shaper(_nMake(Native.getPtr(fontMgr)));
         } finally {
-            Reference.reachabilityFence(fontMgr);
+            RefExt.reachabilityFence(fontMgr);
         }
     }
 
@@ -122,8 +122,8 @@ public class Shaper extends Managed {
             long ptr = _nShapeBlob(_ptr, text, Native.getPtr(font), features, leftToRight, width, offset._x, offset._y);
             return 0 == ptr ? null : new TextBlob(ptr);
         } finally {
-            Reference.reachabilityFence(this);
-            Reference.reachabilityFence(font);
+            RefExt.reachabilityFence(this);
+            RefExt.reachabilityFence(font);
         }
     }
 
@@ -136,12 +136,12 @@ public class Shaper extends Managed {
                         float width,
                         RunHandler runHandler)
     {
-        try (var textUtf8 = new ManagedString(text);
-             var fontIter = new FontMgrRunIterator(textUtf8, false, font, fontMgr);
-             var bidiIter = new IcuBidiRunIterator(textUtf8, false, leftToRight ? java.text.Bidi.DIRECTION_LEFT_TO_RIGHT : java.text.Bidi.DIRECTION_RIGHT_TO_LEFT);
-             var scriptIter = new HbIcuScriptRunIterator(textUtf8, false);)
+        try (ManagedString textUtf8 = new ManagedString(text);
+             FontMgrRunIterator fontIter = new FontMgrRunIterator(textUtf8, false, font, fontMgr);
+             IcuBidiRunIterator bidiIter = new IcuBidiRunIterator(textUtf8, false, leftToRight ? java.text.Bidi.DIRECTION_LEFT_TO_RIGHT : java.text.Bidi.DIRECTION_RIGHT_TO_LEFT);
+             HbIcuScriptRunIterator scriptIter = new HbIcuScriptRunIterator(textUtf8, false);)
         {
-            var langIter = new TrivialLanguageRunIterator(text, Locale.getDefault().toLanguageTag());
+            TrivialLanguageRunIterator langIter = new TrivialLanguageRunIterator(text, Locale.getDefault().toLanguageTag());
             return shape(textUtf8, fontIter, bidiIter, scriptIter, langIter, features, width, runHandler);
         }
     }
@@ -186,8 +186,8 @@ public class Shaper extends Managed {
             Stats.onNativeCall();
             return new TextLine(_nShapeLine(_ptr, text, Native.getPtr(font), features, leftToRight));
         } finally {
-            Reference.reachabilityFence(this);
-            Reference.reachabilityFence(font);
+            RefExt.reachabilityFence(this);
+            RefExt.reachabilityFence(font);
         }
     }
 

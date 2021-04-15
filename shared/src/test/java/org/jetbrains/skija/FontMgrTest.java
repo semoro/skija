@@ -24,16 +24,16 @@ public class FontMgrTest implements Executable {
         assertEquals("JetBrains Mono", fm.getFamilyName(0));
         assertEquals("Interface", fm.getFamilyName(1));
 
-        try (var ss = fm.makeStyleSet(0)) {
+        try (FontStyleSet ss = fm.makeStyleSet(0)) {
             assertEquals(0, ss.count()); // ?
         }
 
-        try (var ss = fm.makeStyleSet(1)) {
+        try (FontStyleSet ss = fm.makeStyleSet(1)) {
             assertEquals(0, ss.count()); // ?
         }
 
         // FontStyleSet
-        try (var ss = fm.matchFamily("JetBrains Mono")) {
+        try (FontStyleSet ss = fm.matchFamily("JetBrains Mono")) {
             assertEquals(2, ss.count());
             assertEquals(FontStyle.NORMAL, ss.getStyle(0));
             assertEquals("JetBrains Mono", ss.getStyleName(0));
@@ -42,28 +42,28 @@ public class FontMgrTest implements Executable {
             assertEquals("JetBrains Mono", ss.getStyleName(1));
 
             assertEquals(2, jbMono.getRefCount());
-            try (var face = ss.getTypeface(0)) {
+            try (Typeface face = ss.getTypeface(0)) {
                 assertEquals(3, jbMono.getRefCount());
                 assertEquals(jbMono, face);
             }
             assertEquals(2, jbMono.getRefCount());
 
             assertEquals(2, jbMonoBold.getRefCount());
-            try (var face = ss.getTypeface(1)) {
+            try (Typeface face = ss.getTypeface(1)) {
                 assertEquals(3, jbMonoBold.getRefCount());
                 assertEquals(jbMonoBold, face);
             }
             assertEquals(2, jbMonoBold.getRefCount());
 
             assertEquals(2, jbMono.getRefCount());
-            try (var face = ss.matchStyle(FontStyle.NORMAL)) {
+            try (Typeface face = ss.matchStyle(FontStyle.NORMAL)) {
                 assertEquals(3, jbMono.getRefCount());
                 assertEquals(jbMono, face);
             }
             assertEquals(2, jbMono.getRefCount());            
 
             assertEquals(2, jbMonoBold.getRefCount());
-            try (var face = ss.matchStyle(FontStyle.BOLD)) {
+            try (Typeface face = ss.matchStyle(FontStyle.BOLD)) {
                 assertEquals(3, jbMonoBold.getRefCount());
                 assertEquals(jbMonoBold, face);
             }
@@ -77,9 +77,9 @@ public class FontMgrTest implements Executable {
 
         assertEquals(null, fm.matchFamilyStyleCharacter("JetBrains Mono", FontStyle.BOLD, new String[] {"en-US"}, 65 /* A */)); // ?
 
-        try (var data = Data.makeFromFileName("src/test/resources/fonts/JetBrainsMono-Italic.ttf");
-             var face = fm.makeFromData(data);
-             var ss = fm.matchFamily("JetBrains Mono"); )
+        try (Data data = Data.makeFromFileName("src/test/resources/fonts/JetBrainsMono-Italic.ttf");
+             Typeface face = fm.makeFromData(data);
+             FontStyleSet ss = fm.matchFamily("JetBrains Mono"); )
         {
             assertEquals(2, fm.getFamiliesCount());
             assertEquals(2, ss.count()); // ?

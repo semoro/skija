@@ -25,7 +25,7 @@ public class PathTest implements Executable {
 
     public void iter() {
         try (Path p = new Path().moveTo(10, 10).lineTo(20, 0).lineTo(20, 20).closePath();
-             var i = p.iterator();) {
+             PathSegmentIterator i = p.iterator();) {
             assertEquals(true, i.hasNext());
             PathSegment s = i.next();
             assertEquals(PathVerb.MOVE, s.getVerb());
@@ -75,7 +75,7 @@ public class PathTest implements Executable {
     }
 
     public void isShape() {
-        for (var dir: PathDirection.values()) {
+        for (PathDirection dir: PathDirection.values()) {
             for (int start = 0; start < 4; ++start) {
                 try (Path p = new Path().addRect(Rect.makeLTRB(0, 0, 40, 20), dir, start)) {
                     assertEquals(Rect.makeLTRB(0, 0, 40, 20), p.isRect());
@@ -85,7 +85,7 @@ public class PathTest implements Executable {
             }
         }
 
-        for (var dir: PathDirection.values()) {
+        for (PathDirection dir: PathDirection.values()) {
             for (int start = 0; start < 4; ++start) {
                 try (Path p = new Path().addOval(Rect.makeLTRB(0, 0, 40, 20), dir, start)) {
                     assertEquals(null, p.isRect());
@@ -95,7 +95,7 @@ public class PathTest implements Executable {
             }
         }
 
-        for (var dir: PathDirection.values()) {
+        for (PathDirection dir: PathDirection.values()) {
             try (Path p = new Path().addCircle(20, 20, 20, dir)) {
                 assertEquals(null, p.isRect());
                 assertEquals(Rect.makeLTRB(0, 0, 40, 40), p.isOval());
@@ -103,7 +103,7 @@ public class PathTest implements Executable {
             }
         }
 
-        for (var dir: PathDirection.values()) {
+        for (PathDirection dir: PathDirection.values()) {
             for (int start = 0; start < 8; ++start) {
                 try (Path p = new Path().addRRect(RRect.makeLTRB(0, 0, 40, 20, 5), dir, start)) {
                     assertEquals(null, p.isRect());
@@ -294,12 +294,12 @@ public class PathTest implements Executable {
             Path.convertConicToQuads(new Point(0, 20), new Point(20, 0), new Point(40, 20), 0.5f, 2));
 
         try (Path p = new Path().lineTo(40, 40)) {
-            var g1 = p.getGenerationId();
+            int g1 = p.getGenerationId();
             p.lineTo(10, 40);
-            var g2 = p.getGenerationId();
+            int g2 = p.getGenerationId();
             assertNotEquals(g1, g2);
             p.setFillMode(PathFillMode.EVEN_ODD);
-            var g3 = p.getGenerationId();
+            int g3 = p.getGenerationId();
             assertEquals(g2, g3);
         }
     }

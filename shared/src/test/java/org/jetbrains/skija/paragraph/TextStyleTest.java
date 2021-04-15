@@ -11,10 +11,10 @@ public class TextStyleTest implements Executable {
     public void execute() throws Exception {
         assertEquals(new TextStyle(), new TextStyle());
 
-        try (var ts1 = new TextStyle();
-             var ts2 = new TextStyle();)
+        try (TextStyle ts1 = new TextStyle();
+             TextStyle ts2 = new TextStyle();)
         {
-            for (var attr: new TextStyleAttribute[] {
+            for (TextStyleAttribute attr: new TextStyleAttribute[] {
                 TextStyleAttribute.ALL_ATTRIBUTES,
                 TextStyleAttribute.FONT,
                 TextStyleAttribute.FOREGROUND,

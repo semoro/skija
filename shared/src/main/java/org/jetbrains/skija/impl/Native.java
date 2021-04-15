@@ -2,6 +2,7 @@ package org.jetbrains.skija.impl;
 
 import java.lang.ref.*;
 import org.jetbrains.annotations.*;
+import org.jetbrains.skija.RefExt;
 
 public abstract class Native {
     public long _ptr;
@@ -33,8 +34,8 @@ public abstract class Native {
                 return true;
             return _nativeEquals(nOther);
         } finally {
-            Reference.reachabilityFence(this);
-            Reference.reachabilityFence(other);
+            RefExt.reachabilityFence(this);
+            RefExt.reachabilityFence(other);
         }
     }
 
